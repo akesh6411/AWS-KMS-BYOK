@@ -14,7 +14,7 @@ Generate a 256-bit symmetric key and save it in a file named PlaintextKeyMateria
 
 ## Step 1: Create an AWS KMS key without key material :
 
-1.Go to Console and switch to AWS KMS Service
+Go to Console and switch to AWS KMS Service
    - Click Customer Managed Keys
    - Create Key
    - Key type - Symmetric
@@ -34,24 +34,29 @@ You will have two binary files of WrappingPublicKey.bin and ImportToken.bin
 > [!NOTE]
 > This wrapping public key and import token will expire in 24 hours.So before that Wrap your Key Material and Upload in KMS.
 
-### Encrypting key material with OpenSSL
+## Step 2: Encrypting key material with OpenSSL
 Now we have to encrypt our Plain Key material with Wrapping Key provided by AWS.
 
 ## Excecute Command:
-> openssl pkeyutl -encrypt -in PlaintextKeyMaterial.bin -out EncryptedKeyMaterial.bin -inkey WrappingPublicKey.bin -keyform DER -pubin -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha1
+> openssl pkeyutl -encrypt -in PlaintextKeyMaterial.bin -out EncryptedKeyMaterial.bin -inkey WrappingPublicKey.bin -keyform DER -pubin -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 -pkeyopt rsa_mgf1_md:sha256
 
 Replace path in command as below :
-  - -in Genrated Key Material
+  - -in Key Material path
   - -out Output path to get encrypted Key material
   - -inkey WrappingKey path downloaded from AWS
-We have Encrypted key material.
+Now We have Encrypted key material as EncryptedKeyMaterial.bin.
 
-# Import Our Key Material to AWS KMS
+## Step 3: Import Our Key Material to AWS KMS
 Go to AWS Console :
 - Choose key and select Key Material
 - Select Import Key Material
-- Next and Upload Wrapped key material and Import token.
+- Next and Upload Wrapped key material (EncryptedKeyMaterial.bin) and Import token.
 - Set Expiration option Enable and choose time period
 
 > [!IMPORTANT]
 > If you choose Expiration then we have to ReWrap Key by genrating a new key encrypted material and Reupload.Old uploaded file will be expired.
+
+> [!Tip]
+> We can reimport and delete key material anytime.
+> For reference :
+[AWS Documentation](https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html)
