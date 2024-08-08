@@ -4,7 +4,7 @@
 
 Should have a Key Material or you can generate new key material Using Open SSL.
 > [!CAUTION]
-> Avoid using Openssl for genrating key material for Production Workloads.Better use some other tool.
+> Avoid using Openssl for generating key material for Production Workloads.Better use some other tool.
 
 ## Openssl :
 Generate a 256-bit symmetric key and save it in a file named PlaintextKeyMaterial.bin
@@ -54,7 +54,7 @@ Go to AWS Console :
 - Set Expiration option Enable and choose time period
 
 > [!IMPORTANT]
-> If you choose Expiration then we have to ReWrap Key by genrating a new key encrypted material and Reupload.Old uploaded file will be expired.
+> If you choose Expiration then we have to ReWrap Key by generating a new key encrypted material and Reupload.Old uploaded file will be expired.
 
 > [!Tip]
 > We can reimport and delete key material anytime.
