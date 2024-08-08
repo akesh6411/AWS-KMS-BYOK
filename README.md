@@ -25,7 +25,7 @@ Go to Console and switch to AWS KMS Service
    - Key Users – Choose user
    - Finish
 > [!IMPORTANT]
->  Check wheather KMS policy has kms:ImportKeyMaterial action for the User
+>  Check whether KMS policy has kms:ImportKeyMaterial action for the User
   
 ## Now You will have a page to Download Wrapping public key and import token
 Download the file and unzip it.
